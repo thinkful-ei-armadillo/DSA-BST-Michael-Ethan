@@ -8,14 +8,14 @@ const inspectOptions = {
 
 const alpha = new BST();
 
-alpha.insert(3, '1');
-alpha.insert(1, '2');
-alpha.insert(4, '2');
-alpha.insert(6, '3');
-alpha.insert(9, '4');
-alpha.insert(2, '3');
-alpha.insert(5, '4');
-alpha.insert(7, '5');
+alpha.insert(3, 'three');
+alpha.insert(1, 'one');
+alpha.insert(4, 'four');
+alpha.insert(6, 'six');
+alpha.insert(9, 'nine');
+alpha.insert(2, 'two');
+alpha.insert(5, 'five');
+alpha.insert(7, 'seven');
 
 // alpha.remove(3);
 
@@ -49,4 +49,57 @@ function tree(t){
   return '(' + tree(t.left) + t.value + tree(t.right) + ')';
 }
 
-console.log(tree(alpha));
+// console.log(tree(bravo));
+
+
+
+function depth(t){
+  if(!t){
+    return 0;
+  }
+
+  if (t.left === null && t.right === null) {
+    return 0;
+  }
+
+  return depth(t.left) + 1 + depth(t.right);
+}
+
+// console.log(depth(bravo));
+
+
+
+
+// Find 3rd largest
+
+function findNthLargest(tree, state) {
+  if (tree.right) {
+    findNthLargest(tree.right, state);
+    if (state.result) {
+      return;
+    }
+  }
+
+  if (!--state.n) {
+    state.result = tree.key;
+    return;
+  }
+
+  if (tree.left) {
+    findNthLargest(tree.left, state);
+  }
+}
+
+function findThirdLargest(tree) {
+  if (tree.key === null) {
+    return null;
+  }
+
+  const state = { n: 3, result: null };
+  findNthLargest(tree, state);
+  return state.result;
+}
+
+
+console.log(findThirdLargest(alpha));
+console.log(findThirdLargest(bravo));
