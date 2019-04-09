@@ -1,3 +1,5 @@
+'use strict';
+
 const util = require('util');
 const BST = require('./BinarySearchTree');
 
@@ -53,19 +55,67 @@ function tree(t){
 
 
 
-function depth(t){
-  if(!t){
-    return 0;
+
+
+
+
+
+
+
+function depthofBST(tree) {
+  let depth = 0;
+  let leftcount = 1;
+  let rightcount = 1;
+
+  function depthCount(tree) {
+
+  
+
+    if (tree === null) {
+      return 0;
+    }
+  
+    if (tree.left === null && tree.right === null ) {
+      depth++;
+    } else {
+      depth = depth + 1;
+    }
+  
+    if (tree.left) {
+      leftcount = leftcount + 1;
+      
+      
+      depthCount(tree.left);
+    }
+  
+    if (tree.right) {
+      rightcount = rightcount + 1;
+      
+      depthCount(tree.right);
+    }
+  
+    if (rightcount > leftcount) {
+      depth = rightcount;
+      return depth;
+    } else {
+      depth = leftcount;
+      return depth;
+    }
+  
   }
 
-  if (t.left === null && t.right === null) {
-    return 0;
-  }
+  depthCount(tree);
 
-  return depth(t.left) + 1 + depth(t.right);
+
+  return depth;
+    
 }
 
-// console.log(depth(bravo));
+
+
+console.log(depthofBST(alpha));
+console.log(depthofBST(bravo));
+
 
 
 
@@ -101,5 +151,7 @@ function findThirdLargest(tree) {
 }
 
 
-console.log(findThirdLargest(alpha));
-console.log(findThirdLargest(bravo));
+// console.log(findThirdLargest(alpha));
+// console.log(findThirdLargest(bravo));
+
+
